@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Faster+One&display=swap');
+
+.heading{
+    font-family: 'Faster One', cursive;
+    text-align: center;
+    font-size: 90px;
+    color: rgb(189, 58, 226);
+    /* background-image: 
+        linear-gradient(90deg, violet, lightblue);
+        background-clip: text;
+        color: transparent; */
+}
+
+
+.game {
+    text-align: center;
+}
+
+
+.game table {
+    margin: auto;
+    /* border: 2px solid black; */
+    display:inline-block;
+}
+
+.cell {
+    border: 2px solid black;
+    height: 50px;
+    width: 50px;
+}
+
+.timer {
+    display: block;
+}
+
+.modal {
+    display: none;
+}
+
+.diff-container  {
+    margin: auto;
+    padding-bottom: 5%;
+    text-align: center;
+}
+
+.cell:hover {
+    background-color: rgb(236, 70, 70);
+}
+
+.start-buttons {
+    margin: auto;
+    text-align: center;
+}
+
+.smiley {
+    height: 40px;
+    width:50px;
+    text-align: center;
+    font-size: x-large;
+}
+
+footer {
+    margin-top: 10%;
+    text-align: center;
+}
+
+.new-game {
+    height: 40px;
+    padding-top: 10px;
+    text-align: center;
+    width: 100px;
+}

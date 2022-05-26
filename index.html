@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Minesweeper</title>
+</head>
+<body onload="initGame()" oncontextmenu="return false;">
+    <h1 class="heading">Minesweeper</h1>
+    <div class="start-buttons">
+        <button class="smiley" onclick="reset()">😀</button>
+        <button class="new-game"  type="reset" onclick="reset()">New Game</button>
+    </div>
+    
+    <h2 class="timer"></h2>
+    <div class="lives"></div>
+    <!-- <div class="diff-container">
+        <button class="easy-16" data-dif="4" onclick="setDiff(this)">Beginner</button>
+        <button class="medium-64" data-dif="8" onclick="setDiff(this)">Medium</button>
+        <button class="hard-16" data-dif="12" onclick="setDiff(this)">Expert</button>
+    </div> -->
+    <div>
+        <input
+          type="radio"
+          id="easy-16"
+          value="easy"
+          data-diff="4"
+          name="difficulty"
+          onclick="setDiff(this)"
+        />
+        <label for="diff-easy">Easy-16</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="medium-64"
+          value="medium"
+          data-diff="8"
+          name="difficulty"
+          onclick="setDiff(this)"
+        />
+        <label for="diff-hard">Medium-64</label>
+      </div>
+      <div>
+        <input
+          type="radio"
+          id="hard-16"
+          value="hard"
+          data-diff="12"
+          name="difficulty"
+          onclick="setDiff(this)"
+        />
+        <label for="diff-extreme">Expert-144</label>
+      </div>
+
+    <div class="game">
+
+    </div>
+    <div class="modal"></div>
+    <footer>&#169; Sivan Yadegar  🦇</footer>
+    <script src="utils.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
