@@ -9,6 +9,7 @@ var gGame = {
   markedCorrectley: 0,
   isWin: false,
   lives: 3,
+  safeClicks: 3
 };
 const MINE = "💣";
 const FLAG = "🚩";
@@ -17,15 +18,21 @@ const LIFE = "❤️";
 var gClicks = [];
 var gStartTime;
 var gTimeInterval;
+var gBestTimes = {
+  easy : 0,
+  medium: 0,
+  hard: 0
+}
 
 function initGame() {
   gBoard = buildBoard();
-  addRandomMines(gLevel.MINES);
-  console.log(gBoard);
-  setMinesNegsCount(gBoard);
+  // addRandomMines(gLevel.MINES);
+  console.log('init activated');
+  // setMinesNegsCount(gBoard);
   console.log(gBoard);
   renderBoard(gBoard);
-  renderLives(gBoard.lives);
+  renderLives(gGame.lives);
+  // renderSafeClicks()
 }
 
 function buildBoard() {
@@ -84,9 +91,15 @@ function cellClicked(elCell, i, j) {
   //   console.log(click);
   gClicks.push(click);
   if (gClicks[0] === click) {
-    if (modelCell.isMine) {
-      reset();
-    }
+    // console.log(gBoard[i][j].isMine)
+    
+    // renderSafeClicks()
+    var count = 0
+    do {
+      addRandomMines(gLevel.MINES);
+      setMinesNegsCount(gBoard);
+    } while (gBoard[i][j].isMine) 
+    
     console.log("First Click");
     gGame.isOn = true;
     gStartTime = Date.now();
@@ -95,8 +108,10 @@ function cellClicked(elCell, i, j) {
   //    console.log(modelCell)
   gBoard[i][j].isShown = true;
   gGame.shownCount++;
-  if (modelCell.isMine && gGame.lives === 1) {
+  if (modelCell.isMine && gGame.lives <= 1) {
     // elCell.innerText = MINE;
+    gGame.lives--;
+    renderLives(gGame.lives)
     renderCell({ i: i, j: j }, MINE);
     console.log("game over");
     gameOver();
@@ -105,7 +120,7 @@ function cellClicked(elCell, i, j) {
     // console.log(gGame.lives)
     gGame.lives--;
     // console.log('life status 2', gGame.lives)
-    renderLives(gBoard.lives);
+    renderLives(gGame.lives);
   } else {
     elCell.innerText = modelCell.minesAroundCount;
     expandShown(gBoard, elCell, i, j);
@@ -128,11 +143,45 @@ function gameOver() {
     elModal.innerHTML += `<h2 class="modal-header">👑YOU WIN!!!👑</h2>`;
     elSmiley.innerText = "😎";
   } else {
+    elTable.style.display = "none";
     elModal.style.display = "block";
     elModal.innerHTML += `<h2 class="modal-header">YOU LOSE!!!</h2>`;
     elSmiley.innerText = "😵";
   }
 }
+
+// function expandShown(board, rowIdx, colIdx, counter = 0) {
+//   console.log(counter)
+//   console.log(`row ${rowIdx}, col ${colIdx}`)
+//   console.log(`${board[rowIdx][colIdx]}`)
+//   if (rowIdx < 0 || rowIdx >= board.length -1 
+//     || colIdx < 0 || colIdx >= board[0].length -1 || board[rowIdx][colIdx].isMine) {
+//       console.log(`row ${rowIdx}, col ${colIdx}`)
+//     return
+//   }
+//   // if (board[rowIdx][colIdx].isMine) {
+//   //   return 
+//   // }
+//   for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
+//     if (i < 0 || i > board.length - 1) continue;
+//     for (var j = colIdx - 1; j <= colIdx + 1; j++) {
+//       if (j < 0 || j > board[0].length - 1) continue;
+//       if (i === rowIdx && j === colIdx) continue;
+//       if (board[i][j].isMine === false) {
+//         board[i][j].isShown = true;
+//         renderCell({ i: i, j: j }, board[i][j].minesAroundCount);
+//         // openNeighbors(gBoard, i, j)
+//       }
+//     }
+//   }
+
+//   // console.log(newElCell)
+//   counter++
+//   expandShown(board, rowIdx+ 1, colIdx+1, counter)
+//   // expandShown(board, newElCell, rowIdx- 1, colIdx-1, counter)
+
+// }
+
 
 function expandShown(board, elCell, rowIdx, colIdx) {
   for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
@@ -170,11 +219,13 @@ function checkGameOver() {
     openCells === boardSize - gLevel.MINES
   ) {
     gGame.isWin = true;
+    // if ()
     gameOver();
   }
 }
 
 function reset() {
+  console.log('reset')
   clearInterval(gTimeInterval);
   var elTimer = document.querySelector(".timer");
   var elModal = document.querySelector(".modal");
@@ -193,4 +244,5 @@ function reset() {
   };
   gClicks = [];
   initGame();
+  console.log('end of reset')
 }

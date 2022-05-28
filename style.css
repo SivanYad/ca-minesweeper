@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Faster+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 *  {
     color: rgb(252,159,177)
@@ -38,6 +39,7 @@ body {
     border: 2px solid black;
     height: 50px;
     width: 50px;
+    color: black
 }
 
 .timer {
@@ -80,4 +82,23 @@ footer {
     padding-top: 10px;
     text-align: center;
     width: 100px;
+    font-family: 'Permanent Marker', cursive;
+    color: rgb(162, 12, 86)
+}
+
+.lives {
+    text-align: center;
+    font-family: 'Permanent Marker', cursive;
+    font-size: x-large;
+    color: rgb(162, 12, 86)
+}
+
+.radios {
+    padding-bottom: 15px;
+}
+
+
+.radios label {
+    font-family: 'Permanent Marker', cursive;
+    padding-bottom: 15px;
 }
